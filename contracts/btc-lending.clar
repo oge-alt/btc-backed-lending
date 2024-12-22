@@ -36,3 +36,27 @@
 (define-data-var platform-fee-rate uint u1) ;; 1% platform fee
 (define-data-var total-btc-locked uint u0)
 (define-data-var total-loans-issued uint u0)
+
+;; Data Maps
+(define-map loans
+    { loan-id: uint }
+    {
+        borrower: principal,
+        collateral-amount: uint,
+        loan-amount: uint,
+        interest-rate: uint,
+        start-height: uint,
+        last-interest-calc: uint,
+        status: (string-ascii 20)
+    }
+)
+
+(define-map user-loans
+    { user: principal }
+    { active-loans: (list 10 uint) }
+)
+
+(define-map collateral-prices
+    { asset: (string-ascii 3) }
+    { price: uint }
+)

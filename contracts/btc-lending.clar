@@ -133,3 +133,22 @@
         (<= price u1000000000000) ;; Reasonable upper limit for price
     )
 )
+
+;; Public Functions
+(define-public (initialize-platform)
+    (begin
+        (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+        (asserts! (not (var-get platform-initialized)) ERR-ALREADY-INITIALIZED)
+        (var-set platform-initialized true)
+        (ok true)
+    )
+)
+
+(define-public (deposit-collateral (amount uint))
+    (begin
+        (asserts! (var-get platform-initialized) ERR-NOT-INITIALIZED)
+        (asserts! (> amount u0) ERR-INVALID-AMOUNT)
+        (var-set total-btc-locked (+ (var-get total-btc-locked) amount))
+        (ok true)
+    )
+)

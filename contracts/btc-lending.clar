@@ -112,3 +112,24 @@
         )
     )
 )
+
+;; Helper function to validate loan-id
+(define-private (validate-loan-id (loan-id uint))
+    (and 
+        (> loan-id u0)
+        (<= loan-id (var-get total-loans-issued))
+    )
+)
+
+;; Helper function to validate asset string
+(define-private (is-valid-asset (asset (string-ascii 3)))
+    (is-some (index-of VALID-ASSETS asset))
+)
+
+;; Helper function to validate price
+(define-private (is-valid-price (price uint))
+    (and 
+        (> price u0)
+        (<= price u1000000000000) ;; Reasonable upper limit for price
+    )
+)

@@ -22,3 +22,17 @@
 (define-constant ERR-INVALID-LIQUIDATION (err u106))
 (define-constant ERR-LOAN-NOT-FOUND (err u107))
 (define-constant ERR-LOAN-NOT-ACTIVE (err u108))
+
+;; Additional constants for validation
+(define-constant ERR-INVALID-LOAN-ID (err u109))
+(define-constant ERR-INVALID-PRICE (err u110))
+(define-constant ERR-INVALID-ASSET (err u111))
+(define-constant VALID-ASSETS (list "BTC" "STX"))
+
+;; Data Variables
+(define-data-var platform-initialized bool false)
+(define-data-var minimum-collateral-ratio uint u150) ;; 150% collateral ratio
+(define-data-var liquidation-threshold uint u120) ;; 120% triggers liquidation
+(define-data-var platform-fee-rate uint u1) ;; 1% platform fee
+(define-data-var total-btc-locked uint u0)
+(define-data-var total-loans-issued uint u0)

@@ -258,3 +258,18 @@
 		(ok true)
 	)
 )
+
+(define-public (update-price-feed (asset (string-ascii 3)) (new-price uint))
+    (begin
+        (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+        ;; Validate asset and price
+        (asserts! (is-valid-asset asset) ERR-INVALID-ASSET)
+        (asserts! (is-valid-price new-price) ERR-INVALID-PRICE)
+        
+        ;; Only proceed if validations pass
+        (ok (map-set collateral-prices
+            {asset: asset}
+            {price: new-price}
+        ))
+    )
+)
